@@ -172,6 +172,31 @@
       align-items: center;
     }
 
+  
+    /* Navigation active */
+    .nav-active { text-decoration: underline; }
+
+    /* Pages */
+    .page { display: none; }
+    .page.active { display: block; }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.5);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      width: 400px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
   </style>
 </head>
 <body>
@@ -179,9 +204,9 @@
   <header>
     <h1>Console de supervision</h1>
     <nav>
-      <a href="#">Serveurs</a>
-      <a href="#">Jobs</a>
-      <a href="#">Paramètres</a>
+      <a href="#" onclick="showPage('dashboard')" class="nav-active">Dashboard</a>
+      <a href="#" onclick="showPage('jobs')">Jobs</a>
+      <a href="#" onclick="showPage('settings')">Paramètres</a>
     </nav>
   </header>
 
@@ -194,63 +219,80 @@
         <li>Serveur BDD</li>
         <li>Serveur Logs</li>
         <li>Serveur Test</li>
+        <li>Serveur Sauvegarde (Central)</li>
       </ul>
     </aside>
 
     <main>
 
-      <div class="panel">
-        <div class="flex-between">
-          <h2>Supervision des jobs</h2>
-          <button class="btn">Relancer tous les jobs</button>
+      <!-- DASHBOARD -->
+      <div id="dashboard" class="page active">
+        <div class="panel">
+          <div class="flex-between">
+            <h2>Supervision des jobs</h2>
+            <button class="btn" onclick="addLog('info','Relance globale des jobs')">Relancer tous les jobs</button>
+          </div>
+
+          <table>
+            <tr>
+              <th>Serveur</th>
+              <th>Dernière sauvegarde</th>
+              <th>État</th>
+              <th>Espace utilisé</th>
+              <th>Actions</th>
+            </tr>
+            <tr>
+              <td>Serveur Web</td>
+              <td>Aujourd'hui - 02:14</td>
+              <td class="status-ok">Succès</td>
+              <td>12.4 GB / 80 GB</td>
+              <td class="job-actions"><button class="btn" onclick="addLog('info','Relance Serveur Web')">Relancer</button></td>
+            </tr>
+            <tr>
+              <td>Serveur BDD</td>
+              <td>Hier - 22:57</td>
+              <td class="status-error">Échec</td>
+              <td>54.8 GB / 120 GB</td>
+              <td class="job-actions"><button class="btn" onclick="openModal()">Détails</button></td>
+            </tr>
+            <tr>
+              <td>Serveur Logs</td>
+              <td>Aujourd'hui - 01:01</td>
+              <td class="status-ok">Succès</td>
+              <td>3.5 GB / 60 GB</td>
+              <td class="job-actions"><button class="btn" onclick="addLog('info','Relance Serveur Logs')">Relancer</button></td>
+            </tr>
+            <tr>
+              <td>Serveur Sauvegarde</td>
+              <td>Actif</td>
+              <td class="status-ok">Opérationnel</td>
+              <td>420 GB / 2 TB</td>
+              <td class="job-actions"><button class="btn" onclick="addLog('info','Vérification serveur de sauvegarde')">Vérifier</button></td>
+            </tr>
+          </table>
         </div>
 
-        <table>
-          <tr>
-            <th>Serveur</th>
-            <th>Dernière sauvegarde</th>
-            <th>État</th>
-            <th>Espace utilisé</th>
-            <th>Actions</th>
-          </tr>
-          <tr>
-            <td>Serveur Web</td>
-            <td>Aujourd'hui - 02:14</td>
-            <td class="status-ok">Succès</td>
-            <td>12.4 GB / 80 GB</td>
-            <td class="job-actions">
-              <button class="btn">Relancer</button>
-            </td>
-          </tr>
-          <tr>
-            <td>Serveur BDD</td>
-            <td>Hier - 22:57</td>
-            <td class="status-error">Échec</td>
-            <td>54.8 GB / 120 GB</td>
-            <td class="job-actions">
-              <button class="btn">Relancer</button>
-            </td>
-          </tr>
-          <tr>
-            <td>Serveur Logs</td>
-            <td>Aujourd'hui - 01:01</td>
-            <td class="status-ok">Succès</td>
-            <td>3.5 GB / 60 GB</td>
-            <td class="job-actions">
-              <button class="btn">Relancer</button>
-            </td>
-          </tr>
-        </table>
+        <div class="panel">
+          <h2>Logs système</h2>
+          <div class="logs" id="logs"></div>
+        </div>
       </div>
 
-      <div class="panel">
-        <h2>Logs système</h2>
-        <div class="logs">
-          <div class="log-info">[02:14] Sauvegarde Serveur Web terminée avec succès.</div>
-          <div class="log-error">[22:57] Erreur critique : sauvegarde Serveur BDD échouée.</div>
-          <div class="log-warning">[01:01] Serveur Logs : Espace faible (15% restant).</div>
-          <div class="log-info">[01:12] Nettoyage des anciennes archives effectué.</div>
-          <div class="log-info">[02:00] Démarrage tâche hebdomadaire...</div>
+      <!-- JOBS -->
+      <div id="jobs" class="page">
+        <div class="panel">
+          <h2>Gestion des jobs</h2>
+          <p>Configurer la fréquence, les dossiers et la stratégie de sauvegarde.</p>
+          <button class="btn" onclick="addLog('info','Création nouveau job')">Créer un job</button>
+        </div>
+      </div>
+
+      <!-- SETTINGS -->
+      <div id="settings" class="page">
+        <div class="panel">
+          <h2>Paramètres globaux</h2>
+          <p>Serveur distant, clés SSH, rétention des archives.</p>
+          <button class="btn" onclick="addLog('warning','Modification paramètres système')">Sauvegarder</button>
         </div>
       </div>
 
@@ -258,5 +300,45 @@
 
   </div>
 
+
+  <!-- MODAL -->
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <h3>Détails du job</h3>
+      <p>Erreur lors de la sauvegarde BDD : espace disque insuffisant.</p>
+      <button class="btn" onclick="closeModal()">Fermer</button>
+    </div>
+  </div>
+
+  <script>
+    function showPage(page) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById(page).classList.add('active');
+      document.querySelectorAll('nav a').forEach(a => a.classList.remove('nav-active'));
+      event.target.classList.add('nav-active');
+    }
+
+    function addLog(type, message) {
+      const logs = document.getElementById('logs');
+      const time = new Date().toLocaleTimeString();
+      const div = document.createElement('div');
+      div.className = 'log-' + type;
+      div.textContent = `[${time}] ${message}`;
+      logs.prepend(div);
+    }
+
+    function openModal() {
+      document.getElementById('modal').style.display = 'flex';
+      addLog('error','Échec sauvegarde Serveur BDD');
+    }
+
+    function closeModal() {
+      document.getElementById('modal').style.display = 'none';
+    }
+
+    // Logs init
+    addLog('info','Console initialisée');
+    addLog('info','Connexion au serveur de sauvegarde établie');
+  </script>
 </body>
 </html>
