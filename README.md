@@ -66,7 +66,4 @@ Ce projet s’inscrit dans le cadre d’une **SAE – Cycle de vie logiciel (Uni
 - **JavaScript (Vanilla)**
 - Aucun framework (choix pédagogique)
 
----
-
-## 📁 Structure du projet
 
