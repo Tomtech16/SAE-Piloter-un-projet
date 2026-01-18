@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?><project name="Piloter un projet informatique" company="" webLink="http://" view-date="2025-11-25" view-index="0" gantt-divider-location="429" resource-divider-location="300" version="3.3.3320" locale="fr_FR">
+<?xml version="1.0" encoding="UTF-8"?><project name="Piloter un projet informatique" company="" webLink="http://" view-date="2025-12-25" view-index="0" gantt-divider-location="429" resource-divider-location="300" version="3.3.3322" locale="fr_FR">
     <description><![CDATA[Mettre en oeuvre et mener à bien un projet informatique de A à Z dans la SAé-502, en suivant le cycle de vie normalisé par la méthode Unified Process. L’évaluation portera en priorité sur le suivi et respect de la méthode ainsi que l’organisation mise en place par l’équipe, sans négliger bien entendu l’avancée du projet. Pour ce faire voici le sujet : 
 
 Développement d'une application web permettant de collecter des fichiers sélectionnés (logs, bases de données, configurations) depuis plusieurs serveurs vers un serveur de sauvegarde centralisé avec RAID.]]></description>
     <view zooming-state="default:0" id="gantt-chart">
-        <field id="tpd3" name="Nom" width="245" order="0"/>
-        <field id="tpd4" name="Date de début" width="91" order="1"/>
-        <field id="tpd5" name="Date de fin" width="92" order="2"/>
+        <field id="tpd3" name="Nom" width="236" order="0"/>
+        <field id="tpd4" name="Date de début" width="88" order="1"/>
+        <field id="tpd5" name="Date de fin" width="89" order="2"/>
         <field id="tpd15" name="Notes" width="20" order="3"/>
         <option id="taskLabelUp" value="name"/>
         <option id="taskLabelDown" value="resources"/>
@@ -14,7 +14,7 @@ Développement d'une application web permettant de collecter des fichiers sélec
         <option id="filter.dueTodayTasks" value="false"/>
         <option id="filter.overdueTasks" value="false"/>
         <option id="filter.inProgressTodayTasks" value="false"/>
-        <option id="color.recent"><![CDATA[#00ff66 #ff0033 #99ffcc]]></option>
+        <option id="color.recent"><![CDATA[#ff0033 #ff3333 #6699ff #99ccff #00ff66 #99ffcc]]></option>
     </view>
     <view id="resource-table">
         <field id="0" name="Nom" width="209" order="0"/>
@@ -120,11 +120,33 @@ Développement d'une application web permettant de collecter des fichiers sélec
             <task id="8" uid="814300a264d84416a2c11e112d8c2981" name="Paufinage des besoins" meeting="false" start="2025-12-08" duration="1" complete="100" expand="true">
                 <notes><![CDATA[Session de validation et d'ajustement des spécifications suite aux travaux de modélisation. Affinage des stratégies de sauvegarde, précision des règles de roulement (hebdomadaire/mensuel/annuel), et validation des choix techniques.]]></notes>
             </task>
-            <task id="9" uid="9e20dfd59da14e00960f6e7106e6d593" name="Réalisation maquette" color="#00ff66" meeting="false" start="2025-12-09" duration="4" complete="100" expand="true">
+            <task id="9" uid="9e20dfd59da14e00960f6e7106e6d593" name="Réalisation maquette" color="#8cb6ce" meeting="false" start="2025-12-09" duration="4" complete="100" expand="true">
                 <notes><![CDATA[Création de prototypes visuels interactifs de l'interface web : maquettes du dashboard avec écrans de configuration des serveurs et cycles, interfaces de gestion des archives, tout ça au format HTML. 
 
 1er Jalon]]></notes>
+                <depend id="12" type="2" difference="0" hardness="Strong"/>
             </task>
+            <task id="12" uid="d77aba83226145dfa120665b3a0a4568" name="Maquette compléte" color="#ff3333" meeting="true" start="2025-12-15" duration="0" complete="0" expand="true"/>
+        </task>
+        <task id="22" uid="170bfdc510ec49bb9648f9ab9a694517" name="ELABORATION" color="#ff0033" meeting="false" start="2025-12-29" duration="14" complete="100" expand="true">
+            <task id="14" uid="d50093c147e6451bbf80048d8e8d7004" name="Recherches outils" meeting="false" start="2025-12-29" duration="5" complete="100" expand="true">
+                <depend id="11" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="11" uid="6d6e1ccee85b4d7e8f7308acf89c7f34" name="Création environnement" meeting="false" start="2026-01-06" duration="3" complete="100" expand="true">
+                <depend id="15" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="15" uid="d2c47fff2fdf4cdd9d543761100c9bfc" name="Environnement prêt" color="#ff3333" meeting="true" start="2026-01-09" duration="0" complete="100" expand="true">
+                <depend id="17" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="16" uid="1e1077ebff7e42248acc89eccb7dd9d6" name="Modification maquette" meeting="false" start="2026-01-07" duration="4" complete="100" expand="true"/>
+            <task id="17" uid="2f8a22d7ff594cf8aabb136eeb978c5e" name="Intégration maquette" meeting="false" start="2026-01-09" duration="3" complete="100" expand="true">
+                <depend id="18" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="18" uid="99dda441817849e6a192f2433f0d21bd" name="Integration terminer" color="#ff3333" meeting="true" start="2026-01-14" duration="0" complete="100" expand="true"/>
+            <task id="21" uid="997ca4b90b0f49bb8777aa47a29dfe29" name="Lien maquette" meeting="false" start="2026-01-14" duration="3" complete="100" expand="true">
+                <depend id="19" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="19" uid="26596233e88d41c18626c2985de64f12" name="Prototype" color="#ff3333" meeting="true" start="2026-01-19" duration="0" complete="0" expand="true"/>
         </task>
     </tasks>
     <resources>
@@ -137,12 +159,30 @@ Développement d'une application web permettant de collecter des fichiers sélec
         <allocation task-id="6" resource-id="0" function="3" responsible="true" load="100.0"/>
         <allocation task-id="8" resource-id="0" function="3" responsible="true" load="100.0"/>
         <allocation task-id="9" resource-id="0" function="3" responsible="false" load="100.0"/>
+        <allocation task-id="14" resource-id="0" function="3" responsible="false" load="100.0"/>
+        <allocation task-id="16" resource-id="0" function="3" responsible="false" load="100.0"/>
+        <allocation task-id="17" resource-id="0" function="3" responsible="false" load="100.0"/>
+        <allocation task-id="18" resource-id="0" function="3" responsible="false" load="100.0"/>
+        <allocation task-id="19" resource-id="0" function="3" responsible="false" load="100.0"/>
+        <allocation task-id="21" resource-id="0" function="3" responsible="true" load="100.0"/>
         <allocation task-id="3" resource-id="1" function="1" responsible="false" load="100.0"/>
         <allocation task-id="7" resource-id="1" function="1" responsible="true" load="100.0"/>
         <allocation task-id="9" resource-id="1" function="1" responsible="true" load="100.0"/>
+        <allocation task-id="14" resource-id="1" function="1" responsible="false" load="100.0"/>
+        <allocation task-id="16" resource-id="1" function="1" responsible="true" load="100.0"/>
+        <allocation task-id="17" resource-id="1" function="1" responsible="true" load="100.0"/>
+        <allocation task-id="18" resource-id="1" function="1" responsible="false" load="100.0"/>
+        <allocation task-id="19" resource-id="1" function="1" responsible="false" load="100.0"/>
+        <allocation task-id="21" resource-id="1" function="1" responsible="false" load="100.0"/>
         <allocation task-id="3" resource-id="2" function="2" responsible="false" load="100.0"/>
         <allocation task-id="5" resource-id="2" function="2" responsible="true" load="100.0"/>
         <allocation task-id="9" resource-id="2" function="2" responsible="false" load="100.0"/>
+        <allocation task-id="11" resource-id="2" function="2" responsible="true" load="100.0"/>
+        <allocation task-id="14" resource-id="2" function="2" responsible="true" load="100.0"/>
+        <allocation task-id="17" resource-id="2" function="2" responsible="true" load="100.0"/>
+        <allocation task-id="18" resource-id="2" function="2" responsible="true" load="100.0"/>
+        <allocation task-id="19" resource-id="2" function="2" responsible="false" load="100.0"/>
+        <allocation task-id="21" resource-id="2" function="2" responsible="false" load="100.0"/>
     </allocations>
     <vacations/>
     <previous/>
