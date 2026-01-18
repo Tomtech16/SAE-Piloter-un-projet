@@ -67,6 +67,7 @@ Ce projet s’inscrit dans le cadre d’une **SAE – Cycle de vie logiciel (Uni
 - Aucun framework (choix pédagogique)
 
 ### Installation
+- Première étape, mettre à jour les deux machines virtuelles --> (apt update && apt upgrade -y)
 - Prérequis, il faut installer SSH sur les deux serveurs, ensuite il vous faudra installer Apache2 également sur les deux serveurs ainsi que le module PHP.
 - Les scripts se situant dans /var/www/html devrons être insérer, suivez les noms des dossiers (VM1 et pour VM2)
 - Le dossier /root contient l'intégralité des scripts à devoir éxecuter après l'ajout des différentes clé ssh et scripts .html et .php --> n'oubliez pas d'ajouter les droits ! (chmod 777 ./le_fichier)
