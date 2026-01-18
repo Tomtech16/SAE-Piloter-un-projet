@@ -1,0 +1,49 @@
+classDiagram
+    class Administrateur {
+        identifiant
+        cleSSH
+    }
+
+    class InterfaceWeb {
+        session
+    }
+
+    class Authentification {
+        utilisateurs
+    }
+
+    class SystemeSauvegarde {
+        serveurs
+        sauvegardes
+    }
+
+    class Serveur {
+        nom
+        adresseIP
+        statut
+    }
+
+    class Configuration {
+        repertoires
+        frequence
+        politiqueRetention
+    }
+
+    class Archive {
+        nom
+        dateCreation
+        taille
+    }
+
+    class Stockage {
+        cheminBase
+        espaceUtilise
+    }
+
+    Administrateur --> InterfaceWeb
+    InterfaceWeb --> Authentification
+    InterfaceWeb --> SystemeSauvegarde
+    SystemeSauvegarde --> Serveur
+    Serveur --> Configuration
+    SystemeSauvegarde --> Archive
+    Archive --> Stockage
