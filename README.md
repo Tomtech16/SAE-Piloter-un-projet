@@ -64,6 +64,7 @@ Ce projet s’inscrit dans le cadre d’une **SAE – Cycle de vie logiciel (Uni
 - **HTML5**
 - **CSS3**
 - **JavaScript (Vanilla)**
+- **PHP**
 - Aucun framework (choix pédagogique)
 
 ### Installation
