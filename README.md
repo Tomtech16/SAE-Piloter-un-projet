@@ -77,8 +77,12 @@ Ce projet s’inscrit dans le cadre d’une **SAE – Cycle de vie logiciel (Uni
 - L'ensemble des jobs sont visible, vous pourrez alors relancer le job souhaité --> la console vous permettra de suivre en temps réel les opérations.
 - Pour finir, les Backup s'enregistre en .tar et horodaté dans le dossier /tmp/backups/...
 <img width="1431" height="61" alt="1" src="https://github.com/user-attachments/assets/1bb4fb33-4cb8-4865-89e9-2a27b1aed167" />
+
 <img width="2257" height="1152" alt="2" src="https://github.com/user-attachments/assets/7828aad8-1204-4974-8f43-3f84ee353616" />
+
 <img width="2259" height="1152" alt="3" src="https://github.com/user-attachments/assets/1fc9322e-4f8d-442c-9e18-6c86bc5636fb" />
+
+<img width="1244" height="284" alt="4" src="https://github.com/user-attachments/assets/ef0548d7-323a-478d-843c-cd1c7292fe52" />
 
 
 
