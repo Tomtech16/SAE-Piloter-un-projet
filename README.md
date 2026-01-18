@@ -67,6 +67,8 @@ Ce projet s’inscrit dans le cadre d’une **SAE – Cycle de vie logiciel (Uni
 - **PHP**
 - Aucun framework (choix pédagogique)
 
+---
+
 ### Installation du système de sauvegarde
 - Première étape, mettre à jour les deux machines virtuelles --> (apt update && apt upgrade -y)
 - Prérequis, il faut installer SSH sur les deux serveurs, ensuite il vous faudra installer Apache2 également sur les deux serveurs ainsi que le module PHP.
