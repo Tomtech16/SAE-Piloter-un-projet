@@ -82,7 +82,7 @@ Ce projet s’inscrit dans le cadre d’une **SAE – Cycle de vie logiciel (Uni
 
 <img width="2259" height="1152" alt="3" src="https://github.com/user-attachments/assets/1fc9322e-4f8d-442c-9e18-6c86bc5636fb" />
 
-<img width="1244" height="284" alt="4" src="https://github.com/user-attachments/assets/ef0548d7-323a-478d-843c-cd1c7292fe52" />
+<img width="1271" height="286" alt="4" src="https://github.com/user-attachments/assets/0dc2675c-3548-4532-8f32-0ea23357a332" />
 
 
 
