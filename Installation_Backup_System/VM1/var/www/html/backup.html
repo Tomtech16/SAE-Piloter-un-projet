@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Maquette Sauvegardes - Style Veeam</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: #e7eaef;
+      color: #1e1e1e;
+    }
+
+    header {
+      background: #009f2f;
+      padding: 15px 25px;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.20);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.6rem;
+      font-weight: 600;
+    }
+
+    nav a {
+      color: white;
+      margin-left: 20px;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .container {
+      display: flex;
+      padding: 20px;
+      gap: 20px;
+    }
+
+    aside {
+      width: 250px;
+      background: #ffffff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+      height: fit-content;
+    }
+
+    aside h2 {
+      margin-top: 0;
+      font-size: 1.2rem;
+      color: #009f2f;
+    }
+
+    aside ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    aside ul li {
+      padding: 12px 0;
+      border-bottom: 1px solid #ddd;
+      cursor: pointer;
+      font-weight: 500;
+      transition: 0.2s;
+    }
+
+    aside ul li:hover {
+      color: #009f2f;
+      padding-left: 5px;
+    }
+
+    main {
+      flex: 1;
+    }
+
+    .panel {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+      margin-bottom: 25px;
+    }
+
+    .panel h2 {
+      margin-top: 0;
+      font-size: 1.4rem;
+      color: #009f2f;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fafafa;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    table th, table td {
+      padding: 14px;
+      text-align: left;
+      border-bottom: 1px solid #e0e0e0;
+      font-size: 0.95rem;
+    }
+
+    table th {
+      background: #f0f0f0;
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+    }
+
+    .status-ok {
+      color: #00b336;
+      font-weight: bold;
+    }
+
+    .status-error {
+      color: #cc0000;
+      font-weight: bold;
+    }
+
+    .status-running {
+      color: #ff9900;
+      font-weight: bold;
+    }
+
+    .btn {
+      background: #00b336;
+      color: white;
+      padding: 9px 18px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: 0.2s;
+    }
+
+    .btn:hover {
+      opacity: 0.85;
+    }
+
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .job-actions button {
+      margin-right: 10px;
+    }
+
+    .logs {
+      background: #000;
+      color: #0f0;
+      padding: 15px;
+      height: 180px;
+      border-radius: 8px;
+      overflow-y: auto;
+      font-family: monospace;
+      font-size: 0.85rem;
+      box-shadow: inset 0 0 5px rgba(0,0,0,0.4);
+    }
+
+    .log-error { color: #ff4444; }
+    .log-info { color: #00ff99; }
+    .log-warning { color: #ffff66; }
+    .log-success { color: #00ff00; }
+
+    .flex-between {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-active { text-decoration: underline; }
+
+    .page { display: none; }
+    .page.active { display: block; }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.5);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      width: 500px;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 600;
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+
+    .toggle-switch {
+      display: inline-block;
+      position: relative;
+      width: 50px;
+      height: 24px;
+    }
+
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: 0.4s;
+      border-radius: 24px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 16px;
+      width: 16px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      transition: 0.4s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider {
+      background-color: #00b336;
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(26px);
+    }
+
+    .job-enabled {
+      background-color: #e8f5e9;
+    }
+
+    .job-disabled {
+      background-color: #ffebee;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Console de supervision</h1>
+    <nav>
+      <a href="#" onclick="showPage('dashboard')" class="nav-active">Dashboard</a>
+      <a href="#" onclick="showPage('servers')">Serveurs</a>
+      <a href="#" onclick="showPage('jobs')">Jobs</a>
+      <a href="#" onclick="showPage('settings')">Paramètres</a>
+    </nav>
+  </header>
+
+  <div class="container">
+
+    <aside>
+      <h2>Liste des serveurs</h2>
+      <ul id="server-list">
+        <li>Serveur Web (10.3.123.21)</li>
+      </ul>
+    </aside>
+
+    <main>
+
+      <div id="dashboard" class="page active">
+        <div class="panel">
+          <div class="flex-between">
+            <h2>Supervision des jobs</h2>
+            <button class="btn" onclick="executeAllBackups()">Relancer tous les jobs</button>
+          </div>
+
+          <table id="dashboard-table">
+            <tr>
+              <th>Serveur</th>
+              <th>Adresse IP</th>
+              <th>Dernière sauvegarde</th>
+              <th>État</th>
+              <th>Job auto</th>
+              <th>Actions</th>
+            </tr>
+            <!-- Les lignes seront ajoutées dynamiquement -->
+          </table>
+        </div>
+
+        <div class="panel">
+          <h2>Logs système</h2>
+          <div class="logs" id="logs"></div>
+        </div>
+      </div>
+
+      <div id="servers" class="page">
+        <div class="panel">
+          <h2>Gestion des serveurs</h2>
+          <p>Ajoutez ou modifiez les serveurs à sauvegarder.</p>
+          <button class="btn" onclick="openAddServerModal()">Ajouter un serveur</button>
+          
+          <br><br>
+          
+          <table id="servers-table">
+            <tr>
+              <th>Nom</th>
+              <th>Adresse IP</th>
+              <th>Port SSH</th>
+              <th>Utilisateur</th>
+              <th>Actions</th>
+            </tr>
+            <!-- Les lignes seront ajoutées dynamiquement -->
+          </table>
+        </div>
+      </div>
+
+      <div id="jobs" class="page">
+        <div class="panel">
+          <h2>Gestion des jobs automatisés</h2>
+          <p>Configurez la fréquence, les dossiers et la stratégie de sauvegarde automatique.</p>
+          <button class="btn" onclick="openAddJobModal()">Créer un job</button>
+          
+          <br><br>
+          
+          <table id="jobs-table">
+            <tr>
+              <th>Serveur</th>
+              <th>Source</th>
+              <th>Fréquence</th>
+              <th>Destination</th>
+              <th>Activé</th>
+              <th>Prochaine exécution</th>
+              <th>Actions</th>
+            </tr>
+            <!-- Les lignes seront ajoutées dynamiquement -->
+          </table>
+        </div>
+      </div>
+
+      <div id="settings" class="page">
+        <div class="panel">
+          <h2>Paramètres globaux</h2>
+          <p>Serveur distant, clés SSH, rétention des archives.</p>
+          
+          <div class="form-group">
+            <label>Répertoire de sauvegarde par défaut :</label>
+            <input type="text" id="default-backup-dir" value="/home/rt/backups" />
+          </div>
+          
+          <div class="form-group">
+            <label>Rétention des archives (jours) :</label>
+            <input type="number" id="retention-days" value="30" min="1" />
+          </div>
+          
+          <button class="btn" onclick="saveSettings()">Sauvegarder</button>
+        </div>
+      </div>
+
+    </main>
+
+  </div>
+
+  <!-- Modal Ajout Serveur -->
+  <div class="modal" id="modal-server">
+    <div class="modal-content">
+      <h3>Ajouter un serveur</h3>
+      <form id="add-server-form">
+        <div class="form-group">
+          <label>Nom du serveur :</label>
+          <input type="text" id="server-name" placeholder="Ex: Serveur BDD" required>
+        </div>
+        
+        <div class="form-group">
+          <label>Adresse IP :</label>
+          <input type="text" id="server-ip" placeholder="Ex: 10.3.123.22" required>
+        </div>
+        
+        <div class="form-group">
+          <label>Port SSH :</label>
+          <input type="number" id="server-port" value="22" required>
+        </div>
+        
+        <div class="form-group">
+          <label>Utilisateur SSH :</label>
+          <input type="text" id="server-user" value="rt" required>
+        </div>
+        
+        <div class="form-group">
+          <label>Mot de passe SSH :</label>
+          <input type="password" id="server-password" value="alexandre" required>
+        </div>
+        
+        <div style="display: flex; gap: 10px; justify-content: flex-end;">
+          <button type="button" class="btn" onclick="closeModal('modal-server')" style="background: #999;">Annuler</button>
+          <button type="submit" class="btn">Ajouter</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal Ajout Job -->
+  <div class="modal" id="modal-job">
+    <div class="modal-content">
+      <h3 id="job-modal-title">Créer un job automatisé</h3>
+      <form id="add-job-form">
+        <input type="hidden" id="job-edit-index" value="">
+        
+        <div class="form-group">
+          <label>Serveur cible :</label>
+          <select id="job-server" required>
+            <option value="">-- Sélectionner un serveur --</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label>Répertoire source à sauvegarder (sur le serveur cible) :</label>
+          <input type="text" id="job-source" placeholder="/var/www/html" required>
+        </div>
+        
+        <div class="form-group">
+          <label>Fréquence de sauvegarde :</label>
+          <select id="job-frequency" required>
+            <option value="30">Toutes les 30 minutes</option>
+            <option value="60">Toutes les heures</option>
+            <option value="120" selected>Toutes les 2 heures</option>
+            <option value="180">Toutes les 3 heures</option>
+            <option value="360">Toutes les 6 heures</option>
+            <option value="720">Toutes les 12 heures</option>
+            <option value="1440">Tous les jours</option>
+            <option value="10080">Toutes les semaines</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label>Répertoire de destination (sur le serveur backup) :</label>
+          <input type="text" id="job-destination" placeholder="/home/rt/backups/serveur_web" required>
+        </div>
+        
+        <div class="form-group">
+          <label style="display: flex; align-items: center; gap: 10px;">
+            <span>Job activé :</span>
+            <label class="toggle-switch">
+              <input type="checkbox" id="job-enabled" checked>
+              <span class="slider"></span>
+            </label>
+          </label>
+        </div>
+        
+        <div style="display: flex; gap: 10px; justify-content: flex-end;">
+          <button type="button" class="btn" onclick="closeModal('modal-job')" style="background: #999;">Annuler</button>
+          <button type="submit" class="btn">Enregistrer</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Données globales
+    let servers = [
+      {
+        name: 'Serveur Web',
+        ip: '10.3.123.21',
+        port: 22,
+        user: 'rt',
+        password: 'alexandre',
+        editable: false,
+        lastBackup: null,
+        status: 'ok'
+      }
+    ];
+
+    let jobs = [];
+    let jobTimers = {};
+    let settings = {
+      defaultBackupDir: '/home/rt/backups',
+      retentionDays: 30
+    };
+
+    // Charger les données depuis le backend en priorité, sinon localStorage
+    function loadData() {
+      // Charger les jobs et settings depuis localStorage
+      const savedJobs = localStorage.getItem('jobs');
+      const savedSettings = localStorage.getItem('settings');
+      
+      if (savedJobs) {
+        jobs = JSON.parse(savedJobs);
+      }
+      
+      if (savedSettings) {
+        settings = JSON.parse(savedSettings);
+        document.getElementById('default-backup-dir').value = settings.defaultBackupDir;
+        document.getElementById('retention-days').value = settings.retentionDays;
+      }
+      
+      // Charger les serveurs depuis le backend
+      loadServersFromBackend();
+    }
+    
+    // Charger les serveurs depuis le backend
+    function loadServersFromBackend() {
+      fetch('sync_servers.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: 'action=load'
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success && data.servers && data.servers.length > 0) {
+          servers = data.servers;
+          addLog('success', 'Serveurs chargés depuis le serveur');
+        } else {
+          // Fallback vers localStorage
+          const savedServers = localStorage.getItem('servers');
+          if (savedServers) {
+            servers = JSON.parse(savedServers);
+          }
+          addLog('warning', 'Serveurs chargés depuis le cache local');
+        }
+        updateAllViews();
+      })
+      .catch(error => {
+        console.error('Erreur de chargement:', error);
+        // Fallback vers localStorage
+        const savedServers = localStorage.getItem('servers');
+        if (savedServers) {
+          servers = JSON.parse(savedServers);
+        }
+        updateAllViews();
+        addLog('warning', 'Serveurs chargés depuis le cache local (hors ligne)');
+      });
+    }
+
+    // Sauvegarder les données dans le localStorage ET synchroniser avec le backend
+    function saveData() {
+      localStorage.setItem('servers', JSON.stringify(servers));
+      localStorage.setItem('jobs', JSON.stringify(jobs));
+      localStorage.setItem('settings', JSON.stringify(settings));
+      
+      // Synchroniser les serveurs avec le backend
+      syncServersToBackend();
+    }
+    
+    // Synchroniser les serveurs avec le backend
+    function syncServersToBackend() {
+      fetch('sync_servers.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `action=save&servers=${encodeURIComponent(JSON.stringify(servers))}`
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (!data.success) {
+          console.error('Erreur de synchronisation:', data.message);
+        }
+      })
+      .catch(error => {
+        console.error('Erreur de connexion lors de la synchronisation:', error);
+      });
+    }
+
+    function showPage(page) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById(page).classList.add('active');
+      document.querySelectorAll('nav a').forEach(a => a.classList.remove('nav-active'));
+      event.target.classList.add('nav-active');
+    }
+
+    function addLog(type, message) {
+      const logs = document.getElementById('logs');
+      const time = new Date().toLocaleTimeString();
+      const div = document.createElement('div');
+      div.className = 'log-' + type;
+      div.textContent = `[${time}] ${message}`;
+      logs.prepend(div);
+    }
+
+    function openAddServerModal() {
+      document.getElementById('modal-server').style.display = 'flex';
+    }
+
+    function openAddJobModal() {
+      document.getElementById('job-modal-title').textContent = 'Créer un job automatisé';
+      document.getElementById('job-edit-index').value = '';
+      document.getElementById('add-job-form').reset();
+      updateJobServerSelect();
+      document.getElementById('modal-job').style.display = 'flex';
+    }
+
+    function openEditJobModal(index) {
+      const job = jobs[index];
+      document.getElementById('job-modal-title').textContent = 'Modifier le job';
+      document.getElementById('job-edit-index').value = index;
+      updateJobServerSelect();
+      document.getElementById('job-server').value = job.serverIndex;
+      document.getElementById('job-source').value = job.source || '/var/www/html';
+      document.getElementById('job-frequency').value = job.frequency;
+      document.getElementById('job-destination').value = job.destination;
+      document.getElementById('job-enabled').checked = job.enabled;
+      document.getElementById('modal-job').style.display = 'flex';
+    }
+
+    function closeModal(modalId) {
+      document.getElementById(modalId).style.display = 'none';
+      if (modalId === 'modal-server') {
+        document.getElementById('add-server-form').reset();
+      } else if (modalId === 'modal-job') {
+        document.getElementById('add-job-form').reset();
+      }
+    }
+
+    function updateJobServerSelect() {
+      const select = document.getElementById('job-server');
+      select.innerHTML = '<option value="">-- Sélectionner un serveur --</option>';
+      servers.forEach((server, index) => {
+        const option = document.createElement('option');
+        option.value = index;
+        option.textContent = `${server.name} (${server.ip})`;
+        select.appendChild(option);
+      });
+    }
+
+    // Gestion du formulaire d'ajout de serveur
+    document.getElementById('add-server-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const serverData = {
+        name: document.getElementById('server-name').value,
+        ip: document.getElementById('server-ip').value,
+        port: document.getElementById('server-port').value,
+        user: document.getElementById('server-user').value,
+        password: document.getElementById('server-password').value,
+        editable: true,
+        lastBackup: null,
+        status: 'unknown'
+      };
+      
+      servers.push(serverData);
+      saveData();
+      updateAllViews();
+      
+      addLog('success', `Serveur "${serverData.name}" ajouté avec succès`);
+      closeModal('modal-server');
+    });
+
+    // Gestion du formulaire d'ajout/modification de job
+    document.getElementById('add-job-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const editIndex = document.getElementById('job-edit-index').value;
+      const serverIndex = parseInt(document.getElementById('job-server').value);
+      
+      const jobData = {
+        serverIndex: serverIndex,
+        serverName: servers[serverIndex].name,
+        source: document.getElementById('job-source').value,
+        frequency: parseInt(document.getElementById('job-frequency').value),
+        destination: document.getElementById('job-destination').value,
+        enabled: document.getElementById('job-enabled').checked,
+        lastRun: null,
+        nextRun: new Date(Date.now() + parseInt(document.getElementById('job-frequency').value) * 60000)
+      };
+      
+      if (editIndex !== '') {
+        // Modification
+        stopJobTimer(parseInt(editIndex));
+        jobs[parseInt(editIndex)] = jobData;
+        addLog('info', `Job modifié pour le serveur "${jobData.serverName}"`);
+      } else {
+        // Création
+        jobs.push(jobData);
+        addLog('success', `Job créé pour le serveur "${jobData.serverName}"`);
+      }
+      
+      saveData();
+      updateAllViews();
+      startAllJobs();
+      
+      closeModal('modal-job');
+    });
+
+    function updateServersList() {
+      const list = document.getElementById('server-list');
+      list.innerHTML = servers.map(s => `<li>${s.name} (${s.ip})</li>`).join('');
+    }
+
+    function updateServersTable() {
+      const table = document.getElementById('servers-table');
+      const rows = servers.map((server, index) => `
+        <tr>
+          <td>${server.name}</td>
+          <td>${server.ip}</td>
+          <td>${server.port}</td>
+          <td>${server.user}</td>
+          <td class="job-actions">
+            ${server.editable ? 
+              `<button class="btn" style="background: #cc0000;" onclick="deleteServer(${index})">Supprimer</button>` : 
+              `<button class="btn" onclick="addLog('warning','Modification non disponible pour ce serveur')">Modifier</button>`
+            }
+          </td>
+        </tr>
+      `).join('');
+      
+      table.innerHTML = `
+        <tr>
+          <th>Nom</th>
+          <th>Adresse IP</th>
+          <th>Port SSH</th>
+          <th>Utilisateur</th>
+          <th>Actions</th>
+        </tr>
+        ${rows}
+      `;
+    }
+
+    function updateDashboardTable() {
+      const table = document.getElementById('dashboard-table');
+      
+      if (servers.length === 0) {
+        table.innerHTML = `
+          <tr>
+            <th>Serveur</th>
+            <th>Adresse IP</th>
+            <th>Dernière sauvegarde</th>
+            <th>État</th>
+            <th>Job auto</th>
+            <th>Actions</th>
+          </tr>
+          <tr>
+            <td colspan="6" style="text-align: center;">Aucun serveur configuré</td>
+          </tr>
+        `;
+        return;
+      }
+      
+      const rows = servers.map((server, index) => {
+        const job = jobs.find(j => j.serverIndex === index);
+        const jobStatus = job ? (job.enabled ? 'Actif' : 'Désactivé') : 'Non configuré';
+        const jobClass = job ? (job.enabled ? 'status-ok' : 'status-error') : '';
+        
+        let lastBackupText = 'Jamais';
+        if (server.lastBackup) {
+          const date = new Date(server.lastBackup);
+          const now = new Date();
+          const diff = now - date;
+          const minutes = Math.floor(diff / 60000);
+          const hours = Math.floor(minutes / 60);
+          const days = Math.floor(hours / 24);
+          
+          if (days > 0) {
+            lastBackupText = `Il y a ${days} jour${days > 1 ? 's' : ''}`;
+          } else if (hours > 0) {
+            lastBackupText = `Il y a ${hours} heure${hours > 1 ? 's' : ''}`;
+          } else if (minutes > 0) {
+            lastBackupText = `Il y a ${minutes} minute${minutes > 1 ? 's' : ''}`;
+          } else {
+            lastBackupText = "À l'instant";
+          }
+        }
+        
+        const statusClass = server.status === 'ok' ? 'status-ok' : 
+                           server.status === 'error' ? 'status-error' : 
+                           server.status === 'running' ? 'status-running' : '';
+        const statusText = server.status === 'ok' ? 'Succès' : 
+                          server.status === 'error' ? 'Erreur' : 
+                          server.status === 'running' ? 'En cours...' : 'Inconnu';
+        
+        return `
+          <tr>
+            <td>${server.name}</td>
+            <td>${server.ip}</td>
+            <td>${lastBackupText}</td>
+            <td class="${statusClass}">${statusText}</td>
+            <td class="${jobClass}">${jobStatus}</td>
+            <td class="job-actions">
+              <button class="btn" id="btn-${index}" onclick="executeBackup(${index})" 
+                ${server.status === 'running' ? 'disabled' : ''}>
+                ${server.status === 'running' ? 'En cours...' : 'Relancer'}
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+      
+      table.innerHTML = `
+        <tr>
+          <th>Serveur</th>
+          <th>Adresse IP</th>
+          <th>Dernière sauvegarde</th>
+          <th>État</th>
+          <th>Job auto</th>
+          <th>Actions</th>
+        </tr>
+        ${rows}
+      `;
+    }
+
+    function updateJobsTable() {
+      const table = document.getElementById('jobs-table');
+      
+      if (jobs.length === 0) {
+        table.innerHTML = `
+          <tr>
+            <th>Serveur</th>
+            <th>Source</th>
+            <th>Fréquence</th>
+            <th>Destination</th>
+            <th>Activé</th>
+            <th>Prochaine exécution</th>
+            <th>Actions</th>
+          </tr>
+          <tr>
+            <td colspan="7" style="text-align: center;">Aucun job configuré</td>
+          </tr>
+        `;
+        return;
+      }
+      
+      const rows = jobs.map((job, index) => {
+        const frequencyText = job.frequency < 60 ? `${job.frequency} min` :
+                             job.frequency < 1440 ? `${job.frequency / 60} h` :
+                             job.frequency < 10080 ? `${job.frequency / 1440} jour(s)` :
+                             `${job.frequency / 10080} semaine(s)`;
+        
+        let nextRunText = 'Désactivé';
+        if (job.enabled && job.nextRun) {
+          const nextDate = new Date(job.nextRun);
+          const now = new Date();
+          const diff = nextDate - now;
+          const minutes = Math.floor(diff / 60000);
+          const hours = Math.floor(minutes / 60);
+          
+          if (diff < 0) {
+            nextRunText = 'En attente...';
+          } else if (hours > 0) {
+            nextRunText = `Dans ${hours}h ${minutes % 60}min`;
+          } else {
+            nextRunText = `Dans ${minutes} min`;
+          }
+        }
+        
+        const rowClass = job.enabled ? 'job-enabled' : 'job-disabled';
+        const sourceDisplay = job.source || '/var/www/html';
+        
+        return `
+          <tr class="${rowClass}">
+            <td>${job.serverName}</td>
+            <td>${sourceDisplay}</td>
+            <td>${frequencyText}</td>
+            <td>${job.destination}</td>
+            <td>${job.enabled ? '✓ Oui' : '✗ Non'}</td>
+            <td>${nextRunText}</td>
+            <td class="job-actions">
+              <button class="btn" onclick="openEditJobModal(${index})">Modifier</button>
+              <button class="btn" style="background: ${job.enabled ? '#ff9900' : '#00b336'};" 
+                onclick="toggleJob(${index})">
+                ${job.enabled ? 'Désactiver' : 'Activer'}
+              </button>
+              <button class="btn" style="background: #cc0000;" onclick="deleteJob(${index})">Supprimer</button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+      
+      table.innerHTML = `
+        <tr>
+          <th>Serveur</th>
+          <th>Source</th>
+          <th>Fréquence</th>
+          <th>Destination</th>
+          <th>Activé</th>
+          <th>Prochaine exécution</th>
+          <th>Actions</th>
+        </tr>
+        ${rows}
+      `;
+    }
+
+    function updateAllViews() {
+      updateServersList();
+      updateServersTable();
+      updateDashboardTable();
+      updateJobsTable();
+    }
+
+    function deleteServer(index) {
+      const server = servers[index];
+      
+      // Vérifier si un job existe pour ce serveur
+      const jobIndex = jobs.findIndex(j => j.serverIndex === index);
+      if (jobIndex !== -1) {
+        addLog('error', `Impossible de supprimer le serveur "${server.name}". Un job automatisé existe pour ce serveur.`);
+        return;
+      }
+      
+      if (confirm(`Êtes-vous sûr de vouloir supprimer le serveur "${server.name}" ?`)) {
+        servers.splice(index, 1);
+        
+        // Mettre à jour les indices des jobs
+        jobs.forEach(job => {
+          if (job.serverIndex > index) {
+            job.serverIndex--;
+          }
+        });
+        
+        saveData();
+        updateAllViews();
+        addLog('warning', `Serveur "${server.name}" supprimé`);
+      }
+    }
+
+    function deleteJob(index) {
+      const job = jobs[index];
+      if (confirm(`Êtes-vous sûr de vouloir supprimer le job pour "${job.serverName}" ?`)) {
+        stopJobTimer(index);
+        jobs.splice(index, 1);
+        saveData();
+        updateAllViews();
+        addLog('warning', `Job supprimé pour "${job.serverName}"`);
+      }
+    }
+
+    function toggleJob(index) {
+      jobs[index].enabled = !jobs[index].enabled;
+      
+      if (jobs[index].enabled) {
+        jobs[index].nextRun = new Date(Date.now() + jobs[index].frequency * 60000);
+        startJobTimer(index);
+        addLog('success', `Job activé pour "${jobs[index].serverName}"`);
+      } else {
+        stopJobTimer(index);
+        addLog('warning', `Job désactivé pour "${jobs[index].serverName}"`);
+      }
+      
+      saveData();
+      updateAllViews();
+    }
+
+    function startJobTimer(index) {
+      stopJobTimer(index);
+      
+      const job = jobs[index];
+      if (!job.enabled) return;
+      
+      const interval = job.frequency * 60000; // Convertir en millisecondes
+      
+      jobTimers[index] = setInterval(() => {
+        addLog('info', `Exécution automatique du job pour "${job.serverName}"`);
+        executeBackup(job.serverIndex, job.destination);
+        job.lastRun = new Date();
+        job.nextRun = new Date(Date.now() + interval);
+        saveData();
+        updateJobsTable();
+      }, interval);
+    }
+
+    function stopJobTimer(index) {
+      if (jobTimers[index]) {
+        clearInterval(jobTimers[index]);
+        delete jobTimers[index];
+      }
+    }
+
+    function startAllJobs() {
+      jobs.forEach((job, index) => {
+        if (job.enabled) {
+          startJobTimer(index);
+        }
+      });
+    }
+
+    function executeBackup(serverIndex, customDestination = null) {
+      const server = servers[serverIndex];
+      
+      if (!server) {
+        addLog('error', 'Serveur introuvable');
+        return;
+      }
+      
+      // Déterminer la destination et la source
+      let destination = customDestination;
+      let source = '/var/www/html'; // Valeur par défaut
+      
+      if (!destination) {
+        // Chercher si un job existe pour ce serveur
+        const job = jobs.find(j => j.serverIndex === serverIndex);
+        if (job) {
+          destination = job.destination;
+          source = job.source || '/var/www/html';
+        } else {
+          destination = `/home/rt/backups/${server.name.toLowerCase().replace(/\s+/g, '_')}`;
+        }
+      } else {
+        // Si destination personnalisée, chercher aussi la source dans les jobs
+        const job = jobs.find(j => j.serverIndex === serverIndex);
+        if (job) {
+          source = job.source || '/var/www/html';
+        }
+      }
+      
+      server.status = 'running';
+      updateDashboardTable();
+      
+      addLog('info', `Lancement du backup de "${server.name}"...`);
+      
+      fetch('execute_backup.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `server_index=${encodeURIComponent(serverIndex)}&destination=${encodeURIComponent(destination)}&source=${encodeURIComponent(source)}`
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          addLog('success', data.message);
+          server.status = 'ok';
+          server.lastBackup = new Date();
+          
+          if (data.output) {
+            const outputLines = data.output.split('\n');
+            outputLines.forEach(line => {
+              if (line.trim()) {
+                addLog('info', line);
+              }
+            });
+          }
+        } else {
+          addLog('error', data.message);
+          server.status = 'error';
+          if (data.output) {
+            addLog('error', data.output);
+          }
+        }
+      })
+      .catch(error => {
+        addLog('error', 'Erreur de connexion au serveur: ' + error);
+        server.status = 'error';
+      })
+      .finally(() => {
+        saveData();
+        updateDashboardTable();
+      });
+    }
+
+    function executeAllBackups() {
+      addLog('info', 'Relance globale des jobs');
+      servers.forEach((server, index) => {
+        setTimeout(() => {
+          executeBackup(index);
+        }, index * 2000); // Délai de 2 secondes entre chaque backup
+      });
+    }
+
+    function saveSettings() {
+      settings.defaultBackupDir = document.getElementById('default-backup-dir').value;
+      settings.retentionDays = parseInt(document.getElementById('retention-days').value);
+      saveData();
+      addLog('success', 'Paramètres sauvegardés');
+    }
+
+    // Initialisation
+    window.addEventListener('load', () => {
+      loadData();
+      // updateAllViews() est maintenant appelé par loadServersFromBackend()
+      
+      addLog('info', 'Console initialisée');
+      addLog('info', 'Connexion au serveur de sauvegarde établie');
+      
+      // Démarrer les jobs après un délai pour laisser le temps aux serveurs de se charger
+      setTimeout(() => {
+        startAllJobs();
+        if (jobs.length > 0) {
+          const activeJobs = jobs.filter(j => j.enabled).length;
+          addLog('success', `${activeJobs} job(s) automatisé(s) activé(s)`);
+        }
+      }, 1000);
+      
+      // Rafraîchir l'affichage des prochaines exécutions toutes les minutes
+      setInterval(() => {
+        updateJobsTable();
+        updateDashboardTable();
+      }, 60000);
+    });
+  </script>
+</body>
+</html>
